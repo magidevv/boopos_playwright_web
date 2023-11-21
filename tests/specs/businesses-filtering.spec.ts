@@ -1,4 +1,5 @@
 const { test, expect, beforeEach, afterEach } = require("@playwright/test");
+const assert = require("assert");
 import LoginPage from "../pages/login.page";
 import ForSalePage from "../pages/for-sale.page";
 
@@ -48,9 +49,12 @@ test("Businesses filtering", async ({ page }) => {
   await forSalePage.clickShowListingsButton();
 
   // Verify the businesses display according to the asking price filter
-  await forSalePage.checkBusinessPriceRange(
-    validMinAskingPrice,
-    validMaxAskingPrice
+  await assert.strictEqual(
+    await forSalePage.checkBusinessPriceRange(
+      validMinAskingPrice,
+      validMaxAskingPrice
+    ),
+    true
   );
 
   // Reset filters
@@ -63,9 +67,12 @@ test("Businesses filtering", async ({ page }) => {
   await forSalePage.clickShowListingsButton();
 
   // Verify the businesses display according to the annual multiple filter
-  await forSalePage.checkAnnualMultipleRange(
-    validMinMultiple,
-    validMaxMultiple
+  await assert.strictEqual(
+    await forSalePage.checkAnnualMultipleRange(
+      validMinMultiple,
+      validMaxMultiple
+    ),
+    true
   );
 
   // Reset filters
@@ -78,7 +85,10 @@ test("Businesses filtering", async ({ page }) => {
   await forSalePage.clickShowListingsButton();
 
   // Verify the businesses display according to the TTM Profit filter
-  await forSalePage.checkTTMprofitRange(validMinTTMProfit, validMaxTTMprofit);
+  await assert.strictEqual(
+    await forSalePage.checkTTMprofitRange(validMinTTMProfit, validMaxTTMprofit),
+    true
+  );
 
   // Reset filters
   await forSalePage.clickFiltersButton();
@@ -90,9 +100,12 @@ test("Businesses filtering", async ({ page }) => {
   await forSalePage.clickShowListingsButton();
 
   // Verify the businesses display according to the TTM Revenue filter
-  await forSalePage.checkTTMrevenueRange(
-    validMinTTMrevenue,
-    validMaxTTMrevenue
+  await assert.strictEqual(
+    await forSalePage.checkTTMrevenueRange(
+      validMinTTMrevenue,
+      validMaxTTMrevenue
+    ),
+    true
   );
 
   // Reset filters

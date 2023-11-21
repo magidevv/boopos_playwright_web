@@ -37,7 +37,9 @@ class ForSalePage extends BasePage {
 
     this.filtersButton = page.locator("a[data-testid='filter-more']");
     this.filterWindowTitle = page.locator("//h3[text()='Filter listings']");
-    this.askingPriceLabel = page.locator("//form//div/div[text()='Asking price']");
+    this.askingPriceLabel = page.locator(
+      "//form//div/div[text()='Asking price']"
+    );
     this.minAskingPriceLabel = page.locator(
       "//label[text()='Min asking price']"
     );
@@ -50,7 +52,9 @@ class ForSalePage extends BasePage {
     this.maxAskingPriceField = page.locator(
       "//label[text()='Max asking price']/following-sibling::input"
     );
-    this.annualMultipleLabel = page.locator("//form//div/div[text()='Annual multiple']");
+    this.annualMultipleLabel = page.locator(
+      "//form//div/div[text()='Annual multiple']"
+    );
     this.minMultipleLabel = page.locator("//label[text()='Min multiple']");
     this.minMultipleField = page.locator(
       "//label[text()='Min multiple']/following-sibling::input"
@@ -68,7 +72,9 @@ class ForSalePage extends BasePage {
     this.maxTTMprofitField = page.locator(
       "//label[text()='Max TTM Profit']/following-sibling::input"
     );
-    this.TTMrevenueLabel = page.locator("//form//div/div[text()='TTM Revenue']");
+    this.TTMrevenueLabel = page.locator(
+      "//form//div/div[text()='TTM Revenue']"
+    );
     this.minTTMrevenueLabel = page.locator("//label[text()='Min TTM Revenue']");
     this.minTTMrevenueField = page.locator(
       "//label[text()='Min TTM Revenue']/following-sibling::input"
@@ -90,7 +96,7 @@ class ForSalePage extends BasePage {
       "button[data-testid='apply-filters-button']"
     );
     this.resetFiltersButton = page.locator(
-      "button[data-testid='reset-filters-button']"
+      "//form//div/button[@data-testid='reset-filters-button']"
     );
   }
 
@@ -180,56 +186,67 @@ class ForSalePage extends BasePage {
     minPrice: number,
     maxPrice: number
   ): Promise<boolean> {
-    const businessPriceText = await this.getText(this.businessPrice);
-    const businessPriceNumeric = parseFloat(
-      businessPriceText.replace(/[^0-9.-]+/g, "")
-    );
-    const isInRange =
-      businessPriceNumeric >= minPrice && businessPriceNumeric <= maxPrice;
-    return isInRange;
+    for (let i = 0; i < (await this.businessPrice.count()); i++) {
+      const businessPriceText = await this.getText(this.businessPrice.nth(i));
+      const businessPriceNumeric = parseFloat(
+        businessPriceText.replace(/[^\d.]/g, "")
+      );
+      if (businessPriceNumeric > maxPrice || businessPriceNumeric < minPrice) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public async checkAnnualMultipleRange(
     minRatio: number,
     maxRatio: number
   ): Promise<boolean> {
-    const businessPriceText = await this.getText(this.businessPrice);
-    const businessPriceNumeric = parseFloat(
-      businessPriceText.replace(/[^0-9.-]+/g, "")
-    );
-    const TTMprofitText = await this.getText(this.businessPrice);
-    const TTMprofitNumeric = parseFloat(
-      TTMprofitText.replace(/[^0-9.-]+/g, "")
-    );
-    const ratio = businessPriceNumeric / TTMprofitNumeric;
-    const isInRange = ratio >= minRatio && ratio <= maxRatio;
-    return isInRange;
+    for (let i = 0; i < (await this.businessPrice.count()); i++) {
+      const businessPriceText = await this.getText(this.businessPrice.nth(i));
+      const businessPriceNumeric = parseFloat(
+        businessPriceText.replace(/[^\d.]/g, "")
+      );
+      const TTMprofitText = await this.getText(this.TTMprofit.nth(i));
+      const TTMprofitNumeric = parseFloat(
+        TTMprofitText.replace(/[^0-9.-]+/g, "")
+      );
+      const ratio = businessPriceNumeric / TTMprofitNumeric;
+      if (ratio > maxRatio || ratio < minRatio) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public async checkTTMprofitRange(
     minPrice: number,
     maxPrice: number
   ): Promise<boolean> {
-    const TTMprofitText = await this.getText(this.TTMprofit);
-    const TTMprofitNumeric = parseFloat(
-      TTMprofitText.replace(/[^0-9.-]+/g, "")
-    );
-    const isInRange =
-      TTMprofitNumeric >= minPrice && TTMprofitNumeric <= maxPrice;
-    return isInRange;
+    for (let i = 0; i < (await this.TTMprofit.count()); i++) {
+      const TTMprofitText = await this.getText(this.TTMprofit.nth(i));
+      const TTMprofitNumeric = parseFloat(TTMprofitText.replace(/[^\d.]/g, ""));
+      if (TTMprofitNumeric > maxPrice || TTMprofitNumeric < minPrice) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public async checkTTMrevenueRange(
     minPrice: number,
     maxPrice: number
   ): Promise<boolean> {
-    const TTMrevenueText = await this.getText(this.TTMrevenue);
-    const TTMrevenueNumeric = parseFloat(
-      TTMrevenueText.replace(/[^0-9.-]+/g, "")
-    );
-    const isInRange =
-      TTMrevenueNumeric >= minPrice && TTMrevenueNumeric <= maxPrice;
-    return isInRange;
+    for (let i = 0; i < (await this.TTMrevenue.count()); i++) {
+      const TTMrevenueText = await this.getText(this.TTMrevenue.nth(i));
+      const TTMrevenueNumeric = parseFloat(
+        TTMrevenueText.replace(/[^\d.]/g, "")
+      );
+      if (TTMrevenueNumeric > maxPrice || TTMrevenueNumeric < minPrice) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 
