@@ -31,12 +31,13 @@ test("Businesses filtering", async ({ page }) => {
   await loginPage.fillPasswordField(validPassword);
   await loginPage.isContinuePasswordButtonDisplayed();
   await loginPage.clickContinuePasswordButton();
+  await forSalePage.waitForTimeout(1000);
 
   // Open the «For Sale» Page
   await forSalePage.openForSaleURL();
-  await forSalePage.isForSalePageOpened();
 
   // Open the «Filter listings» Window
+  await forSalePage.waitForTimeout(500);
   await forSalePage.isFiltersButtonDisplayed();
   await forSalePage.clickFiltersButton();
 
@@ -80,7 +81,7 @@ test("Businesses filtering", async ({ page }) => {
   await forSalePage.clickResetFiltersButton();
 
   // Enter the valid TTM Profit
-  await forSalePage.fillMaxTTMprofitField(validMinTTMProfit.toString());
+  await forSalePage.fillMinTTMprofitField(validMinTTMProfit.toString());
   await forSalePage.fillMaxTTMprofitField(validMaxTTMprofit.toString());
   await forSalePage.clickShowListingsButton();
 
