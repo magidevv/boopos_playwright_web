@@ -1,4 +1,4 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Tue Dec 26 18:54:01 UTC 2023","Tue Dec 26 18:54:20 UTC 2023","19018","webkit","businesses-filtering.spec.ts","","","","Businesses filtering",""
-"passed","Tue Dec 26 18:52:44 UTC 2023","Tue Dec 26 18:53:01 UTC 2023","17108","chromium","businesses-filtering.spec.ts","","","","Businesses filtering",""
-"passed","Tue Dec 26 18:53:06 UTC 2023","Tue Dec 26 18:53:29 UTC 2023","23608","firefox","businesses-filtering.spec.ts","","","","Businesses filtering",""
+"passed","Tue Dec 26 19:13:51 UTC 2023","Tue Dec 26 19:14:08 UTC 2023","17438","firefox","businesses-filtering.spec.ts","","","","Businesses filtering",""
+"passed","Tue Dec 26 19:13:05 UTC 2023","Tue Dec 26 19:13:21 UTC 2023","16339","chromium","businesses-filtering.spec.ts","","","","Businesses filtering",""
+"passed","Tue Dec 26 19:14:09 UTC 2023","Tue Dec 26 19:14:29 UTC 2023","20117","webkit","businesses-filtering.spec.ts","","","","Businesses filtering",""
