@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "description": "TC for QA Technical Challenge",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:all": "npx playwright test",
+    "test:all:headed": "npx playwright test --headed",
+    "test:businesses-filtering": "npx playwright test businesses-filtering.spec.ts",
+    "report:create": "npx allure generate reports -o allure-report --clean",
+    "report:open": "npx allure open allure-report"
+  },
   "keywords": [
     "Playwright",
     "TypeScript",
@@ -12,8 +18,9 @@
   "author": "Anna Berezhna",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.40.0",
-    "@types/node": "^20.9.2"
+    "@playwright/test": "^1.40.1",
+    "@types/node": "^20.9.2",
+    "allure-playwright": "^2.10.0"
   },
   "dependencies": {
     "dotenv": "^16.3.1"
